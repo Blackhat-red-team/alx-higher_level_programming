@@ -13,7 +13,7 @@ if __name__ == "__main__":
     email = sys.argv[2]
 
     data = {'email': email}
-    response = requests.post(url, data=data)
+    response = requests.post(data=data)
 
     if response.status_code == 200:
         if email in response.text:
