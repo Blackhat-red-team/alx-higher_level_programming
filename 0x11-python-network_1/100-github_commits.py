@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-"""a GitHub repository's 10 most recent modifica are listed.
+"""a GitHub repository's 10 most recent commits are listed.
 """
 import sys
 import requests
 
 
 if __name__ == "__main__":
-    url = "https://api.github.com/repos/{}/{}/modifica".format(
+    url = "https://api.github.com/repos/{}/{}/commits".format(
         sys.argv[2], sys.argv[1])
 
     n = requests.get(url)
-    modifica = n.json()
+    commits = n.json()
 
     try:
         for z in range(10):
             print("{}: {}".format(
-                modifica[z].get("sha"),
-                modifica[z].get("commit").get("author").get("name")))
+                commits[z].get("sha"),
+                commits[z].get("commit").get("author").get("name")))
     except IndexError:
         pass
