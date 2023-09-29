@@ -17,5 +17,6 @@ if __name__ == "__main__":
 
     if response.status_code == 200:
         print("Your email is:", email)
-
-    print(response.text)
+        print(response.text)
+    else:
+        print("Error: ", response.status_code)
