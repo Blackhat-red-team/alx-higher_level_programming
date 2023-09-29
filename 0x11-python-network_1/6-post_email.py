@@ -6,21 +6,11 @@
 - stores the email in the variable email
 """
 import sys
-import requests
+import urllib.request
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: {} <URL>".format(sys.argv[0]))
-        sys.exit(1)
-
     url_data = sys.argv[1]
 
-    try:
-        respo = requests.get(url_data)
-        respo.raise_for_status()
-
-        email = dict(respo.headers).get("X-Request-Id")
-        print(email)
-    except requests.exceptions.RequestException as z:
-        print("An error occurred while fetching the URL:", z)
-        sys.exit(1)
+    req = urllib.request.Request(url_data)
+    with urllib.request.urlopen(req) as resp:
+        print(dict(resp.headers).get("X-Request-Id"))
