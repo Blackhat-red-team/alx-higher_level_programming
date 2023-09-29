@@ -15,8 +15,14 @@ if __name__ == "__main__":
     data = {'email': email}
     response = requests.post(url, data=data)
 
+    email_printed = False
+
     if response.status_code == 200:
-        print("Your email is:", email)
+        if email in response.text:
+            print("Your email is:", email)
+            email_printed = True
+
+    if email_printed:
         print(response.text)
     else:
-        print("Error: ", response.status_code)
+        print("Error: Email not found in the response")
