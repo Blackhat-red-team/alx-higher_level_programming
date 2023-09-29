@@ -9,18 +9,18 @@ import sys
 import requests
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: {} <URL>".format(sys.argv[0]))
+    if len(sys.argv) != 3:
+        print("Usage: ./6-post_email.py <URL> <email>")
         sys.exit(1)
 
-    url_data = sys.argv[1]
+    url = sys.argv[1]
+    email = sys.argv[2]
 
-    try:
-        respo = requests.get(url_data)
-        respo.raise_for_status()
+    data = {'email': email}
+    response = requests.post(url, data=data)
 
-        email = dict(respo.headers).get("X-Request-Id")
-        print(email)
-    except requests.exceptions.RequestException as z:
-        print("An error occurred while fetching the URL:", z)
-        sys.exit(1)
+    if response.status_code == 200:
+        print("Your email is:", email)
+        print(response.text)
+    else:
+        print(f"Error: {response.status_code}")
