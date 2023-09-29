@@ -19,9 +19,14 @@ if __name__ == "__main__":
     data = {'email': email}
     response = requests.post(url, data=data)
 
+    email_printed = False  # متغير لتتبع ما إذا تم طباعة البريد الإلكتروني أم لا
+
     if response.status_code == 200:
-        print("Your email is:", email)
         if email in response.text:
-            print(response.text)
-    else:
-        print(f"Error: {response.status_code}")
+            print("Your email is:", email)
+            email_printed = True
+
+        print(response.text)
+
+    if not email_printed:
+        print("Your email is:", email)
